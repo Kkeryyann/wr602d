@@ -2,34 +2,18 @@
 
 namespace App\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class HTTPClientTest extends TestCase
+class HttpClientTest extends WebTestCase
 {
-    public function testHttpClientReturnsValidResponse(): void
+
+    public function testHttpClient(): void
     {
-        $expectedData = [
-            'id' => 521583,
-            'name' => 'symfony-docs',
-            'full_name' => 'symfony/symfony-docs',
-        ];
+        $client = static::getContainer()->get(HttpClientInterface::class);
 
-        $mockResponse = new MockResponse(json_encode($expectedData), [
-            'http_code' => 200,
-            'response_headers' => ['content-type' => 'application/json'],
-        ]);
+        $response = $client->request('GET', 'http://localhost:3000');
 
-        $client = new MockHttpClient($mockResponse);
-
-        $response = $client->request('GET', 'https://api.github.com/repos/symfony/symfony-docs');
-
-        $this->assertSame(200, $response->getStatusCode());
-        $this->assertSame('application/json', $response->getHeaders()['content-type'][0]);
-
-        $content = $response->toArray();
-        $this->assertSame(521583, $content['id']);
-        $this->assertSame('symfony-docs', $content['name']);
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }
