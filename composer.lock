@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fde5b6aaceb3bbd1eeb13def563e027d",
+    "content-hash": "9748a8ed0317d011563041ef1e4caade",
     "packages": [
         {
             "name": "composer/semver",
@@ -859,16 +859,16 @@
         },
         {
             "name": "doctrine/migrations",
-            "version": "3.9.5",
+            "version": "3.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "1b823afbc40f932dae8272574faee53f2755eac5"
+                "reference": "ffd8355cdd8505fc650d9604f058bf62aedd80a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/1b823afbc40f932dae8272574faee53f2755eac5",
-                "reference": "1b823afbc40f932dae8272574faee53f2755eac5",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/ffd8355cdd8505fc650d9604f058bf62aedd80a1",
+                "reference": "ffd8355cdd8505fc650d9604f058bf62aedd80a1",
                 "shasum": ""
             },
             "require": {
@@ -942,7 +942,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/migrations/issues",
-                "source": "https://github.com/doctrine/migrations/tree/3.9.5"
+                "source": "https://github.com/doctrine/migrations/tree/3.9.6"
             },
             "funding": [
                 {
@@ -958,7 +958,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-20T11:15:36+00:00"
+            "time": "2026-02-11T06:46:11+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -1143,16 +1143,16 @@
         },
         {
             "name": "doctrine/sql-formatter",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/sql-formatter.git",
-                "reference": "a8af23a8e9d622505baa2997465782cbe8bb7fc7"
+                "reference": "9563949f5cd3bd12a17d12fb980528bc141c5806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/a8af23a8e9d622505baa2997465782cbe8bb7fc7",
-                "reference": "a8af23a8e9d622505baa2997465782cbe8bb7fc7",
+                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/9563949f5cd3bd12a17d12fb980528bc141c5806",
+                "reference": "9563949f5cd3bd12a17d12fb980528bc141c5806",
                 "shasum": ""
             },
             "require": {
@@ -1192,9 +1192,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/sql-formatter/issues",
-                "source": "https://github.com/doctrine/sql-formatter/tree/1.5.3"
+                "source": "https://github.com/doctrine/sql-formatter/tree/1.5.4"
             },
-            "time": "2025-10-26T09:35:14+00:00"
+            "time": "2026-02-08T16:21:46+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -7149,48 +7149,30 @@
             "time": "2026-01-09T12:14:21+00:00"
         },
         {
-            "name": "symfony/ux-turbo",
+            "name": "symfony/ux-react",
             "version": "v2.32.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/ux-turbo.git",
-                "reference": "0deaa8abef20933d11f8bbe9899d950b4333ca1e"
+                "url": "https://github.com/symfony/ux-react.git",
+                "reference": "e9b28032f593d3b2ff37044e194fb15ef9a2abfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/0deaa8abef20933d11f8bbe9899d950b4333ca1e",
-                "reference": "0deaa8abef20933d11f8bbe9899d950b4333ca1e",
+                "url": "https://api.github.com/repos/symfony/ux-react/zipball/e9b28032f593d3b2ff37044e194fb15ef9a2abfa",
+                "reference": "e9b28032f593d3b2ff37044e194fb15ef9a2abfa",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "symfony/stimulus-bundle": "^2.9.1"
             },
-            "conflict": {
-                "symfony/flex": "<1.13"
-            },
             "require-dev": {
-                "dbrekelmans/bdi": "dev-main",
-                "doctrine/doctrine-bundle": "^2.4.3|^3.0|^4.0",
-                "doctrine/orm": "^2.8|^3.0",
-                "php-webdriver/webdriver": "^1.15",
-                "phpstan/phpstan": "^2.1.17",
-                "symfony/asset-mapper": "^6.4|^7.0|^8.0",
-                "symfony/debug-bundle": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/expression-language": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/form": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/framework-bundle": "^6.4|^7.0|^8.0",
-                "symfony/mercure-bundle": "^0.3.7|^0.4.1",
-                "symfony/messenger": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/panther": "^2.2",
+                "symfony/asset-mapper": "^6.3|^7.0|^8.0",
+                "symfony/finder": "^5.4|^6.0|^7.0|^8.0",
+                "symfony/framework-bundle": "^5.4|^6.0|^7.0|^8.0",
                 "symfony/phpunit-bridge": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/process": "^5.4|6.3.*|^7.0|^8.0",
-                "symfony/property-access": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/security-core": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/stopwatch": "^5.4|^6.0|^7.0|^8.0",
-                "symfony/twig-bundle": "^6.4|^7.0|^8.0",
-                "symfony/ux-twig-component": "^2.21",
-                "symfony/web-profiler-bundle": "^5.4|^6.0|^7.0|^8.0"
+                "symfony/twig-bundle": "^5.4|^6.0|^7.0|^8.0",
+                "symfony/var-dumper": "^5.4|^6.0|^7.0|^8.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -7201,7 +7183,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\UX\\Turbo\\": "src/"
+                    "Symfony\\UX\\React\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -7210,26 +7192,21 @@
             ],
             "authors": [
                 {
-                    "name": "Kévin Dunglas",
-                    "email": "kevin@dunglas.fr"
+                    "name": "Titouan Galopin",
+                    "email": "galopintitouan@gmail.com"
                 },
                 {
                     "name": "Symfony Community",
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Hotwire Turbo integration for Symfony",
+            "description": "Integration of React in Symfony",
             "homepage": "https://symfony.com",
             "keywords": [
-                "hotwire",
-                "javascript",
-                "mercure",
-                "symfony-ux",
-                "turbo",
-                "turbo-stream"
+                "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-turbo/tree/v2.32.0"
+                "source": "https://github.com/symfony/ux-react/tree/v2.32.0"
             },
             "funding": [
                 {
@@ -7249,7 +7226,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-17T06:03:34+00:00"
+            "time": "2025-12-02T07:12:06+00:00"
         },
         {
             "name": "symfony/validator",
@@ -7611,6 +7588,82 @@
             "time": "2026-01-01T22:13:48+00:00"
         },
         {
+            "name": "symfony/webpack-encore-bundle",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/webpack-encore-bundle.git",
+                "reference": "5b932e0feddd81aaf0ecd7d5fcd2e450e5a7817e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/5b932e0feddd81aaf0ecd7d5fcd2e450e5a7817e",
+                "reference": "5b932e0feddd81aaf0ecd7d5fcd2e450e5a7817e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1.0",
+                "symfony/asset": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/config": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/dependency-injection": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/http-kernel": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/service-contracts": "^1.1.9 || ^2.1.3 || ^3.0"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/http-client": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/phpunit-bridge": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/twig-bundle": "^5.4 || ^6.2 || ^7.0 || ^8.0",
+                "symfony/web-link": "^5.4 || ^6.2 || ^7.0 || ^8.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/webpack-encore",
+                    "name": "symfony/webpack-encore"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\WebpackEncoreBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Integration of your Symfony app with Webpack Encore",
+            "support": {
+                "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v2.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-11-27T13:41:46+00:00"
+        },
+        {
             "name": "symfony/yaml",
             "version": "v7.4.1",
             "source": {
@@ -7841,16 +7894,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.1.2",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649"
+                "reference": "79155f94852fa27e2f73b459f6503f5e87e2c188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/79155f94852fa27e2f73b459f6503f5e87e2c188",
+                "reference": "79155f94852fa27e2f73b459f6503f5e87e2c188",
                 "shasum": ""
             },
             "require": {
@@ -7897,9 +7950,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.1.2"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.5"
             },
-            "time": "2026-01-13T14:02:24+00:00"
+            "time": "2026-02-18T14:09:36+00:00"
         }
     ],
     "packages-dev": [
@@ -8723,16 +8776,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.10",
+            "version": "12.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1686e30f6b32d35592f878a7f56fd0421d7d56c5"
+                "reference": "47283cfd98d553edcb1353591f4e255dc1bb61f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1686e30f6b32d35592f878a7f56fd0421d7d56c5",
-                "reference": "1686e30f6b32d35592f878a7f56fd0421d7d56c5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/47283cfd98d553edcb1353591f4e255dc1bb61f0",
+                "reference": "47283cfd98d553edcb1353591f4e255dc1bb61f0",
                 "shasum": ""
             },
             "require": {
@@ -8801,7 +8854,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.10"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.14"
             },
             "funding": [
                 {
@@ -8825,7 +8878,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-08T07:06:48+00:00"
+            "time": "2026-02-18T12:38:40+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10067,16 +10120,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.65.1",
+            "version": "v1.66.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "eba30452d212769c9a5bcf0716959fd8ba1e54e3"
+                "reference": "b5b4afa2a570b926682e9f34615a6766dd560ff4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/eba30452d212769c9a5bcf0716959fd8ba1e54e3",
-                "reference": "eba30452d212769c9a5bcf0716959fd8ba1e54e3",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/b5b4afa2a570b926682e9f34615a6766dd560ff4",
+                "reference": "b5b4afa2a570b926682e9f34615a6766dd560ff4",
                 "shasum": ""
             },
             "require": {
@@ -10099,7 +10152,7 @@
             },
             "require-dev": {
                 "composer/semver": "^3.0",
-                "doctrine/doctrine-bundle": "^2.5.0|^3.0.0",
+                "doctrine/doctrine-bundle": "^2.10|^3.0",
                 "doctrine/orm": "^2.15|^3",
                 "doctrine/persistence": "^3.1|^4.0",
                 "symfony/http-client": "^6.4|^7.0|^8.0",
@@ -10141,7 +10194,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/maker-bundle/issues",
-                "source": "https://github.com/symfony/maker-bundle/tree/v1.65.1"
+                "source": "https://github.com/symfony/maker-bundle/tree/v1.66.0"
             },
             "funding": [
                 {
@@ -10161,7 +10214,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-02T07:14:37+00:00"
+            "time": "2026-02-09T08:55:54+00:00"
         },
         {
             "name": "symfony/web-profiler-bundle",

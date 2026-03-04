@@ -121,7 +121,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/twig-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/twig-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/type-info" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-turbo" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
@@ -132,6 +131,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-react" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/webpack-encore-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,47 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Conversion URL vers PDF{% endblock %}
+{% block title %}URL to PDF{% endblock %}
 
 {% block stylesheets %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{ parent() }}
+    <style>
+        .form-container label {
+            color: white;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="url"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 1rem;
+        }
+        .form-container input:focus {
+            border-color: #FF701F;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h1 class="mb-0">
-                    <i class="bi bi-file-pdf"></i> Convertisseur URL vers PDF
-                </h1>
-                <p class="mb-0 mt-2">Générez un PDF à partir de n'importe quelle URL en utilisant Gotenberg</p>
-            </div>
-            <div class="card-body p-4">
-                {% for message in app.flashes('error') %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Erreur !</strong> {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                {% endfor %}
+    <div {{ react_component('PageTransition') }}></div>
 
-                {{ form_start(form) }}
-                <div class="mb-4">
-                    {{ form_label(form.url) }}
-                    {{ form_widget(form.url) }}
-                    {{ form_errors(form.url) }}
-                    <div class="form-text">Entrez l'URL complète de la page que vous souhaitez convertir en PDF</div>
-                </div>
+    <div class="min-h-screen w-full flex flex-col" style="background: #FF701F;">
+        <div {{ react_component('Header') }}></div>
+        <div {{ react_component('WhiteBar') }}></div>
 
-                <div class="d-grid gap-2 mt-4">
-                    {{ form_widget(form.submit) }}
-                </div>
+        <div class="flex-1 flex flex-col items-center justify-center px-4">
+            <h1 class="font-thunder text-[60px] md:text-[150px] lg:text-[200px] leading-[1] text-black uppercase mb-8">
+                URL to PDF
+            </h1>
+
+            <div class="form-container w-full max-w-lg bg-black/10 backdrop-blur-sm border border-black/10 rounded-xl p-8">
+                {{ form_start(form, {'action': path('app_generate_pdf'), 'method': 'POST'}) }}
+
+                {{ form_row(form.url) }}
+
+                <button type="submit" class="w-full py-3 bg-black hover:bg-black/80 text-white font-bold rounded-lg transition-all mt-4 cursor-pointer border-none text-base">
+                    Générer le PDF
+                </button>
                 {{ form_end(form) }}
             </div>
         </div>
 
+        <div {{ react_component('Footer') }}></div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

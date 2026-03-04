@@ -282,16 +282,16 @@
             "templates/base.html.twig"
         ]
     },
-    "symfony/ux-turbo": {
+    "symfony/ux-react": {
         "version": "2.32",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "2.20",
-            "ref": "287f7c6eb6e9b65e422d34c00795b360a787380b"
+            "version": "2.9",
+            "ref": "e970076b31d602ae6e2106cf91a82c7e1f7ddff2"
         },
         "files": [
-            "config/packages/ux_turbo.yaml"
+            "assets/react/controllers/Hello.jsx"
         ]
     },
     "symfony/validator": {
@@ -329,6 +329,22 @@
         },
         "files": [
             "config/packages/messenger.yaml"
+        ]
+    },
+    "symfony/webpack-encore-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "719f6110345acb6495e496601fc1b4977d7102b3"
+        },
+        "files": [
+            "assets/app.js",
+            "assets/styles/app.css",
+            "config/packages/webpack_encore.yaml",
+            "package.json",
+            "webpack.config.js"
         ]
     },
     "twig/extra-bundle": {
