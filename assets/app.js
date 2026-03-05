@@ -1,10 +1,9 @@
-import './stimulus_bootstrap.js';
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
+import { Application } from '@hotwired/stimulus';
+import { registerReactControllerComponents } from '@symfony/ux-react';
+import ReactController from '@symfony/ux-react/dist/render_controller.js';
 import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+const app = Application.start();
+app.register('symfony--ux-react--react', ReactController);
+
+registerReactControllerComponents(require.context('./react/controllers', true, /\.(j|t)sx?$/));
