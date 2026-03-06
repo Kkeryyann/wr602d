@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PDF Faktory - Convertissez vos fichiers en PDF{% endblock %}
+
+{% block body %}
+    <div {{ react_component('PageLayout', {
+        plans: plans,
+        tools: tools,
+        user: headerUser
+    }) }}>
+        Loading...
+    </div>
+{% endblock %}

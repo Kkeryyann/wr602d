@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PDF Faktory - Convertisseur{% endblock %}
+
+{% block body %}
+    <div {{ react_component('ConvertPage', {
+        tools: tools,
+        allTools: allTools|default(tools),
+        user: headerUser
+    }) }}>
+        Loading...
+    </div>
+{% endblock %}
