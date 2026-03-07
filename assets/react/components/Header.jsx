@@ -108,38 +108,6 @@ function NavItem({ href, label }) {
     );
 }
 
-/* ── Convertir trigger + menu ── */
-function ConvertirTrigger({ tools }) {
-    const [hovered, handlers] = useHover();
-    const isActive = typeof window !== 'undefined' && window.location.pathname.startsWith('/converter');
-    return (
-        <NavigationMenuItem>
-            <NavigationMenuTrigger
-                className="px-4 py-1.5 rounded-sm text-sm font-medium h-auto transition-all cursor-pointer"
-                style={{
-                    backgroundColor: isActive ? 'hsl(var(--primary))' : hovered ? 'hsl(var(--primary) / 0.1)' : 'transparent',
-                    color: isActive ? 'hsl(var(--primary-foreground))' : hovered ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))',
-                }}
-                {...handlers}
-            >
-                Convertir
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-1 p-3 md:w-[500px] md:grid-cols-2">
-                    {tools.map((tool) => {
-                        const Icon = getIcon(tool.icon);
-                        return (
-                            <ListItem key={tool.id} title={tool.name} icon={Icon} href={`/converter/${tool.slug}`}>
-                                {tool.description}
-                            </ListItem>
-                        );
-                    })}
-                </ul>
-            </NavigationMenuContent>
-        </NavigationMenuItem>
-    );
-}
-
 /* ── Conversions widget ── */
 function ConversionsWidget({ conversionsLeft, conversionsLimit, resetTime }) {
     const progress = Math.max(2, (conversionsLeft / conversionsLimit) * 100);
@@ -230,10 +198,7 @@ function UserMenu({ user }) {
                     Mon compte
                 </HoverItem>
                 <DropdownMenuSeparator />
-                <HoverItem
-                    href="/logout"
-                    className="text-destructive"
-                >
+                <HoverItem href="/logout" className="text-destructive">
                     <LogOut className="h-4 w-4" />
                     Se déconnecter
                 </HoverItem>
@@ -245,15 +210,14 @@ function UserMenu({ user }) {
 /* ── Header principal ── */
 export default function Header({ tools = [], user = null }) {
     const conversionsUsed = user?.conversionsUsed ?? 0;
-    const conversionsLimit = parseInt(user?.conversionsLimit ?? 2);
+    const conversionsLimit = parseInt(user?.conversionsLimit ?? 5);
     const conversionsLeft = conversionsLimit === -1 ? null : conversionsLimit - conversionsUsed;
     const resetTime = user?.resetTime ?? "0h 0m";
     const planName = user?.planName ?? "FREE";
-
+    const compact = user && planName !== 'PREMIUM';
     return (
-        <header className="flex items-center border-b border-border bg-background px-6 sticky top-0 z-50">
+        <header id="main-header" className={`flex items-center border-b border-border bg-background px-6 sticky top-0 z-50 ${compact ? '' : 'py-4.5'}`}>
             <div className="w-full flex items-center justify-between gap-6">
-
                 {/* Logo */}
                 <a href="/" className="flex items-center gap-2.5 shrink-0">
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -266,7 +230,7 @@ export default function Header({ tools = [], user = null }) {
                 <NavigationMenu className="hidden md:flex">
                     <NavigationMenuList className="gap-1">
                         <NavItem href="/" label="Accueil" />
-                        {tools.length > 0 ? <ConvertirTrigger tools={tools} /> : <NavItem href="/converter" label="Convertir" />}
+                        <NavItem href="/converter" label="Convertir" />
                         <NavItem href="/history" label="Historique" />
                         <NavItem href="/contact" label="Contacts" />
                     </NavigationMenuList>

@@ -58,7 +58,7 @@ export default function Home({ plans = [], tools = [] }) {
                 <DotGrid
                     dotSize={2}
                     gap={15}
-                    baseColor="#271E37"
+                    baseColor="#1F1F1F"
                     activeColor={activeColor}
                     proximity={120}
                     shockRadius={250}
