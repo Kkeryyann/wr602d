@@ -31,7 +31,7 @@ final class ConverterController extends AbstractController
 
         $toolsData = array_map(fn($tool) => $this->formatTool($tool), $tools);
 
-        return $this->render('convertisseur/index.html.twig', [
+        return $this->render('converter/index.html.twig', [
             'tools' => $toolsData,
         ]);
     }
@@ -68,7 +68,7 @@ final class ConverterController extends AbstractController
 
         $allTools = $toolRepository->findBy(['isActive' => true]);
 
-        return $this->render("convertisseur/$slug.html.twig", [
+        return $this->render("converter/$slug.html.twig", [
             'tool' => $this->formatTool($tool),
             'allTools' => array_map(fn($t) => $this->formatTool($t), $allTools),
         ]);

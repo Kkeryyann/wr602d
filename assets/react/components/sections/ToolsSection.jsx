@@ -20,10 +20,12 @@ export default function ToolsSection({ tools = [] }) {
         <section className="py-20 px-4 bg-background border-y border-border">
             <div className="max-w-5xl mx-auto space-y-12">
                 <div className="text-center space-y-3">
-                    <h2 className="text-3xl">Pourquoi choisir PDF FakTandor ?</h2>
-                    <p className="text-muted-foreground max-w-lg mx-auto">
-                        Tout ce dont vous avez besoin pour gérer vos PDF, regroupé en un seul endroit.
-                    </p>
+                    <h2 className="text-3xl">
+                        Tout ce dont vous avez besoin pour gérer vos PDF {" "}
+                        <span className="block text-primary font-black">
+                            regroupé en un seul endroit.
+                        </span>
+                    </h2>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

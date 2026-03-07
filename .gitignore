@@ -41,6 +41,7 @@
 
 # Build data
 /build/
+/var/pdf_storage
 
 # Composer PHAR
 /composer.phar
