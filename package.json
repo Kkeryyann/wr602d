@@ -8,6 +8,7 @@
         "@symfony/ux-react": "file:vendor/symfony/ux-react/assets",
         "@symfony/webpack-encore": "^5.0.0",
         "core-js": "^3.38.0",
+        "cypress": "^15.13.0",
         "react": "^18.0",
         "react-dom": "^18.0",
         "webpack-notifier": "^1.15.0"
