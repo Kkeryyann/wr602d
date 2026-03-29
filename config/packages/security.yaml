@@ -33,6 +33,10 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+        webhook:
+            pattern: ^/webhook
+            stateless: true
+            security: false
 
     role_hierarchy:
         ROLE_BASIC:       ROLE_USER

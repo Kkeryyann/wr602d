@@ -5,6 +5,7 @@
 {% block body %}
     <div {{ react_component('PageLayout', {
         plans: plans,
+        currentPlanId: currentPlanId,
         tools: tools,
         user: headerUser
     }) }}>

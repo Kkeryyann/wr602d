@@ -2,7 +2,7 @@ version: "3.8"
 services:
   web:
     image: mmi3docker/symfony-2024
-    container_name: symfony-web-wr602d
+    container_name: symfony-web
     hostname: symfony-web
     restart: always
     ports:
@@ -16,7 +16,7 @@ services:
 
   db:
     image: mariadb:10.8
-    container_name: symfony-db-wr602d
+    container_name: symfony-db
     hostname: symfony-db
     restart: always
 
@@ -31,7 +31,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: symfony-adminsql-wr602d
+    container_name: symfony-adminsql
     hostname: symfony-adminsql
     restart: always
     ports:
@@ -45,7 +45,7 @@ services:
 
   maildev:
     image: maildev/maildev
-    container_name: symfony-mail-wr602d
+    container_name: symfony-mail
     hostname: symfony-mail
     command: bin/maildev --web 1080 --smtp 1025 --hide-extensions STARTTLS
     restart: always
@@ -55,7 +55,7 @@ services:
 
   gotenberg:
     image: gotenberg/gotenberg:8
-    container_name: symfony-gotenberg-wr602d
+    container_name: symfony-gotenberg
     hostname: symfony-gotenberg
     restart: always
     ports:

@@ -42,6 +42,7 @@ final class SubscriptionController extends AbstractController
                 'price' => $plan->getPrice(),
                 'specialPrice' => $plan->getSpecialPrice(),
                 'limitGeneration' => $plan->getLimitGeneration(),
+                'stripePriceId' => $plan->getStripePriceId(),
                 'tools' => $toolsByPlanId[$plan->getId()] ?? [],
             ];
         }, $plans);

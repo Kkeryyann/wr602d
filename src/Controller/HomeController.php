@@ -35,6 +35,7 @@ final class HomeController extends AbstractController
                 'price' => $plan->getPrice(),
                 'specialPrice' => $plan->getSpecialPrice(),
                 'limitGeneration' => $plan->getLimitGeneration(),
+                'stripePriceId' => $plan->getStripePriceId(),
                 'image' => $plan->getImage(),
                 'tools' => $toolsByPlanId[$plan->getId()] ?? [],
             ];
@@ -59,8 +60,12 @@ final class HomeController extends AbstractController
             ];
         }, $tools);
 
+        $currentUser = $this->getUser();
+        $currentPlanId = $currentUser?->getPlan()?->getId();
+
         return $this->render('home/index.html.twig', [
             'plans' => $plansData,
+            'currentPlanId' => $currentPlanId,
             'tools' => $toolsData,
         ]);
     }

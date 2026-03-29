@@ -15,10 +15,10 @@ class AppFixtures extends Fixture
         //--- PLANS
         $planFree = new Plan();
         $planFree->setName('FREE');
-        $planFree->setDescription('Abonnement gratuit');
+        $planFree->setDescription('Abonnement gratuit - 5 générations par mois');
         $planFree->setPrice(0);
         $planFree->setLimitGeneration(5);
-        $planFree->setRole(null);
+        $planFree->setRole('ROLE_USER');
         $planFree->setActive(true);
         $planFree->setCreatedAt(new \DateTimeImmutable());
         $manager->persist($planFree);
