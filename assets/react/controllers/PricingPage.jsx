@@ -134,6 +134,11 @@ export default function PricingPage({ plans = [], tools = [], user = null, curre
             return;
         }
 
+        if (plan.price > 0 && plan.stripePriceId) {
+            window.location.href = `/payment/checkout/${plan.id}`;
+            return;
+        }
+
         setLoadingPlanId(plan.id);
         setStatus(null);
 

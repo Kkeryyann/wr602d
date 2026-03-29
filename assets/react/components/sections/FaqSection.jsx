@@ -12,7 +12,7 @@ const faqs = [
     },
     {
         question: "Quelle est la limite de conversions ?",
-        answer: "Le plan FREE permet 2 conversions par jour. Le plan BASIC monte à 20 conversions par jour. Le plan PREMIUM offre des conversions illimitées.",
+        answer: "Le plan FREE permet 5 conversions par jour. Le plan BASIC monte à 50 conversions par jour. Le plan PREMIUM offre des conversions illimitées.",
     },
     {
         question: "Puis-je utiliser PDF Faktory via une API ?",

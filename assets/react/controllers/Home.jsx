@@ -32,7 +32,7 @@ function hslVarToHex() {
     }
 }
 
-export default function Home({ plans = [], tools = [] }) {
+export default function Home({ plans = [], tools = [], user = null, currentPlanId = null }) {
     const [activeColor, setActiveColor] = useState('#ff0000');
 
     useEffect(() => {
@@ -70,7 +70,7 @@ export default function Home({ plans = [], tools = [] }) {
             <div className="relative" style={{ zIndex: 1 }}>
                 <HeroSection />
                 <ToolsSection tools={tools} />
-                <PricingSection plans={plans} />
+                <PricingSection plans={plans} currentPlanId={currentPlanId} />
                 <FaqSection />
                 <CtaSection />
             </div>

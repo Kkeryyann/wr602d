@@ -51,7 +51,7 @@ function FeatureItem({ included, label }) {
     );
 }
 
-export default function PricingSection({ plans = [] }) {
+export default function PricingSection({ plans = [], currentPlanId = null }) {
     return (
         <section className="py-20 px-4">
             <div className="max-w-5xl mx-auto space-y-12">
@@ -68,6 +68,7 @@ export default function PricingSection({ plans = [] }) {
                     plans.length >= 3 && "md:grid-cols-3",
                 )}>
                     {plans.map((plan) => {
+                        const isCurrentPlan = currentPlanId === plan.id;
                         const popular = isPopular(plan, plans);
                         const price = getDisplayPrice(plan);
                         const hasSpecial = plan.specialPrice != null && plan.specialPrice < plan.price;
@@ -129,13 +130,24 @@ export default function PricingSection({ plans = [] }) {
 
                                 <CardFooter className="pt-4">
                                     <Button
-                                        variant={popular ? "default" : "outline"}
+                                        variant={isCurrentPlan ? "secondary" : (popular ? "default" : "outline")}
                                         className="w-full"
-                                        asChild
+                                        disabled={isCurrentPlan}
+                                        asChild={!isCurrentPlan}
                                     >
-                                        <a href={price === 0 ? "/converter" : "/subscription"}>
-                                            {price === 0 ? "Commencer" : `Passer à ${plan.name}`}
-                                        </a>
+                                        {isCurrentPlan ? (
+                                            <span>Formule actuelle</span>
+                                        ) : (
+                                            <a href={
+                                                price === 0
+                                                    ? "/converter"
+                                                    : plan.stripePriceId
+                                                        ? `/payment/checkout/${plan.id}`
+                                                        : "/subscription"
+                                            }>
+                                                {price === 0 ? "Commencer" : `Passer à ${plan.name}`}
+                                            </a>
+                                        )}
                                     </Button>
                                 </CardFooter>
                             </Card>

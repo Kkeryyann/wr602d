@@ -5,7 +5,7 @@ import {ModeToggle} from "./ModeToggle";
 export default function Footer() {
     const { theme } = useTheme();
     const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    const logoSrc = isDark ? '/images/logo-icon-dark.png' : '/images/logo-icon.png';
+    const logoSrc = isDark ? '' : '';
     return (
         <footer className="border-t border-border bg-background w-full py-4">
             <div className="flex flex-row items-center justify-between gap-2 w-full max-w-5xl mx-auto">

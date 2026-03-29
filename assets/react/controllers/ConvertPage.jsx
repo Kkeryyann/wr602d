@@ -338,9 +338,12 @@ export default function ConverterPage({ tool, allTools = [], user = null }) {
                 const blobUrl = window.URL.createObjectURL(blob);
                 const link = document.createElement("a");
                 link.href = blobUrl;
+                const baseName = isUrl
+                    ? new URL(url).hostname.replace("www.", "")
+                    : (file?.name ?? "converted").replace(/\.[^.]+$/, "");
                 link.download = contentType.includes("zip") ? "split.zip"
                     : tool.slug === "merge" ? "merged.pdf"
-                        : "converted.pdf";
+                        : `${baseName}_converted.pdf`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);

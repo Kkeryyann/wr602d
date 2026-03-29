@@ -53,8 +53,10 @@ export default function ResetPasswordPage({ errors = [], resetErrors = [], csrfT
 
                     <div className="text-center">
                         <a href="/">
-                            <img src="/images/logo-icon.png" alt="PDF Faktory" className="h-10 mx-auto dark:hidden" />
-                            <img src="/images/logo-icon-dark.png" alt="PDF Faktory" className="h-10 mx-auto hidden dark:block" />
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                                <Zap className="h-4 w-4" />
+                            </div>
+                            <span className="font-semibold text-sm whitespace-nowrap">PDF Faktory</span>
                         </a>
                     </div>
 

@@ -29,14 +29,6 @@ export default function HeroSection() {
         >
             <div className="relative max-w-3xl mx-auto text-center space-y-8">
                 <div className="space-y-5">
-                    <Badge
-                        variant="outline"
-                        className="rounded-full bg-background/50 gap-2 px-3 py-1 text-xs border-primary/30"
-                    >
-                        <span className="rounded-full bg-primary h-1.5 w-1.5 inline-block" />
-                        Conversion instantanée gratuitement
-                    </Badge>
-
                     <h1 className="text-4xl sm:text-5xl font-black leading-tight">
                         Convertissez vos documents{" "}
                         <span className="block text-primary font-black">
