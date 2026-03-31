@@ -33,6 +33,10 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+        webhook:
+            pattern: ^/webhook
+            stateless: true
+            security: false
 
     role_hierarchy:
         ROLE_BASIC:       ROLE_USER
@@ -49,17 +53,17 @@ security:
         - { path: ^/verify/email,   roles: PUBLIC_ACCESS }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
         - { path: ^/contact,        roles: PUBLIC_ACCESS }
-        - { path: ^/abonnement$,    roles: PUBLIC_ACCESS }
+        - { path: ^/subscription$,    roles: PUBLIC_ACCESS }
         - { path: ^/$,              roles: PUBLIC_ACCESS }
-        - { path: ^/convertisseur/url,             roles: ROLE_USER }
+        - { path: ^/converter/url,             roles: ROLE_USER }
 
         # Routes nécessitant un compte (sans plan obligatoire)
-        - { path: ^/abonnement/select-plan, roles: ROLE_USER }
-        - { path: ^/compte,                 roles: ROLE_USER }
-        - { path: ^/historique,             roles: ROLE_USER }
+        - { path: ^/subscription/select-plan, roles: ROLE_USER }
+        - { path: ^/account,                 roles: ROLE_USER }
+        - { path: ^/history,             roles: ROLE_USER }
 
         # Routes nécessitant au minimum ROLE_BASIC (abonné)
-        - { path: ^/convertisseur/html,          roles: ROLE_BASIC }
+        - { path: ^/converter/html,          roles: ROLE_BASIC }
 
 when@test:
     security:

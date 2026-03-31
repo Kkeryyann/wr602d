@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PDF Faktory - Formules & Tarifs{% endblock %}
+
+{% block body %}
+    <div {{ react_component('PricingPage', {
+        plans: plans,
+        tools: tools,
+        user: headerUser,
+        currentPlanId: currentPlanId
+    }) }}>
+        Loading...
+    </div>
+{% endblock %}

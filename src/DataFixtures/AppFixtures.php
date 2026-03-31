@@ -15,19 +15,19 @@ class AppFixtures extends Fixture
         //--- PLANS
         $planFree = new Plan();
         $planFree->setName('FREE');
-        $planFree->setDescription('Abonnement gratuit');
+        $planFree->setDescription('Abonnement gratuit - 5 générations par mois');
         $planFree->setPrice(0);
-        $planFree->setLimitGeneration(2);
-        $planFree->setRole(null);
+        $planFree->setLimitGeneration(5);
+        $planFree->setRole('ROLE_USER');
         $planFree->setActive(true);
         $planFree->setCreatedAt(new \DateTimeImmutable());
         $manager->persist($planFree);
 
         $planBasic = new Plan();
         $planBasic->setName('BASIC');
-        $planBasic->setDescription('Abonnement basic - 20 générations par mois');
-        $planBasic->setPrice(9.9);
-        $planBasic->setLimitGeneration(20);
+        $planBasic->setDescription('Abonnement basic - 50 générations par mois');
+        $planBasic->setPrice(9.95);
+        $planBasic->setLimitGeneration(50);
         $planBasic->setRole('ROLE_BASIC');
         $planBasic->setActive(true);
         $planBasic->setCreatedAt(new \DateTimeImmutable());
@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
         $planPremium = new Plan();
         $planPremium->setName('PREMIUM');
         $planPremium->setDescription('Abonnement PREMIUM - générations illimitées');
-        $planPremium->setPrice(45);
+        $planPremium->setPrice(44.95);
         $planPremium->setLimitGeneration(-1);
         $planPremium->setRole('ROLE_PREMIUM');
         $planPremium->setActive(true);
@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
 
         $tool = new Tool();
         $tool->setName('Word vers PDF');
-        $tool->setDescription('Convertissez vos fichiers Word (.doc, .docx) en PDF via LibreOffice');
+        $tool->setDescription('Convertissez vos fichiers Word (.doc, .docx) en PDF');
         $tool->setColor('blue');
         $tool->setIcon('FileText');
         $tool->setSlug('word');
@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
 
         $tool = new Tool();
         $tool->setName('Excel vers PDF');
-        $tool->setDescription('Convertissez vos fichiers Excel (.xls, .xlsx) en PDF via LibreOffice');
+        $tool->setDescription('Convertissez vos fichiers Excel (.xls, .xlsx) en PDF');
         $tool->setColor('green');
         $tool->setIcon('Sheet');
         $tool->setSlug('excel');
@@ -92,7 +92,7 @@ class AppFixtures extends Fixture
 
         $tool = new Tool();
         $tool->setName('PowerPoint vers PDF');
-        $tool->setDescription('Convertissez vos présentations (.ppt, .pptx) en PDF via LibreOffice');
+        $tool->setDescription('Convertissez vos présentations (.ppt, .pptx) en PDF');
         $tool->setColor('red');
         $tool->setIcon('Presentation');
         $tool->setSlug('powerpoint');

@@ -34,10 +34,10 @@ class TwigGlobalListener
             $conversionsLimit = -1;
         } elseif (in_array('ROLE_BASIC', $roles)) {
             $planName = 'BASIC';
-            $conversionsLimit = 20;
+            $conversionsLimit = 50;
         } else {
             $planName = 'FREE';
-            $conversionsLimit = 2;
+            $conversionsLimit = 5;
         }
 
         $now = new \DateTime();

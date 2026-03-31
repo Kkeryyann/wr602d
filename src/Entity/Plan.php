@@ -55,6 +55,9 @@ class Plan
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'plan')]
     private Collection $users;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $stripePriceId = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -223,6 +226,18 @@ class Plan
                 $user->setPlan(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStripePriceId(): ?string
+    {
+        return $this->stripePriceId;
+    }
+
+    public function setStripePriceId(?string $stripePriceId): static
+    {
+        $this->stripePriceId = $stripePriceId;
 
         return $this;
     }
