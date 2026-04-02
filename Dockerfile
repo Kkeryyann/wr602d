@@ -36,10 +36,9 @@ RUN echo '<VirtualHost *:80>\n\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
 # Permissions
-RUN mkdir -p var/cache var/log var/pdf_storage \
-    && chown -R www-data:www-data var \
-    && chmod -R 775 var
-
+RUN php bin/console cache:warmup --env=prod || true \
+    && chown -R www-data:www-data var/ \
+    && chmod -R 777 var/
 # Optimize autoloader
 RUN composer dump-autoload --no-dev --optimize --no-scripts 2>/dev/null || true
 
@@ -47,4 +46,4 @@ ENV APP_ENV=prod
 ENV APP_DEBUG=0
 
 EXPOSE 80
-CMD ["bash", "-c", "chown -R www-data:www-data /var/www/html/var && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && exec apache2-foreground"]
+CMD ["bash", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && exec apache2-foreground"]
