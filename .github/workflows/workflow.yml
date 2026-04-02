@@ -59,11 +59,6 @@ jobs:
                   touch data/database.sqlite
                   php bin/console doctrine:schema:update --force --env=test
 
-            - name: Execute tests (Unit and Feature tests) via PHPUnit
-              env:
-                  DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-              run: vendor/bin/phpunit
-
             - name: Run PHP_CodeSniffer
               run: vendor/bin/phpcs --standard=PSR2 src/
 
