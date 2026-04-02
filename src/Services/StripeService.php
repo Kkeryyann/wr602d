@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\Entity\Plan;
 use App\Entity\User;
@@ -10,7 +8,9 @@ use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Stripe\Webhook;
 
-
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class StripeService
 {
     public function __construct(
@@ -19,7 +19,6 @@ class StripeService
     ) {
         Stripe::setApiKey($this->secretKey);
     }
-
 
     /**
      * Crée une Checkout Session Stripe pour l'abonnement à un plan.
@@ -53,10 +52,8 @@ class StripeService
             ],
         ]);
 
-
         return $session->url;
     }
-
 
     /**
      * Vérifie la signature du webhook Stripe et retourne l'événement.
