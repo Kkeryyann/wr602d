@@ -71,18 +71,15 @@ class RegistrationControllerTest extends WebTestCase
 
         // Sometimes the attribute is data-react-component depending on the UX React version
         if ($div->count() === 0) {
-            $div = $crawler->filter('div[data-react-component]');
-        }
-
-        // If still not found, let's grab the raw HTML and regex it
-        if ($div->count() === 0) {
             $html = $this->client->getResponse()->getContent();
             preg_match('/"csrfToken":"([^"]+)"/', $html, $matches);
             $csrfToken = $matches[1] ?? '';
         } else {
-            $reactPropsData = $div->attr('data-symfony-ux-react-react-component-value') ?? $div->attr('data-react-component');
-            $props = json_decode($reactPropsData ?? '{}', true);
-            $csrfToken = $props['props']['csrfToken'] ?? $props['csrfToken'] ?? '';
+            $rawAttr = $div->attr('data-symfony--ux-react--react-props-value')
+                ?? $div->attr('data-symfony-ux-react-react-component-value')
+                ?? '{}';
+            $props = json_decode(html_entity_decode($rawAttr), true);
+            $csrfToken = $props['csrfToken'] ?? '';
         }
 
         // Note: Because the form is rendered by React, traditional submitForm won't work
