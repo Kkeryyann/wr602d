@@ -23,10 +23,10 @@ WORKDIR /var/www/html
 # Install system packages and PHP extensions
 RUN apt-get update && apt-get install -y \
     libzip-dev \
-    libpq-dev \
+    libicu-dev \
     zip \
     unzip \
-    && docker-php-ext-install pdo pdo_pgsql zip \
+    && docker-php-ext-install pdo pdo_mysql zip intl \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
