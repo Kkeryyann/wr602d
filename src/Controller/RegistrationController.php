@@ -44,7 +44,9 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('job-fael.babalola@etudiant.univ-reims.fr', 'Admin WR602'))
                     ->to((string) $user->getEmail())
@@ -93,7 +95,6 @@ class RegistrationController extends AbstractController
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
-
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
             /** @var User $user */

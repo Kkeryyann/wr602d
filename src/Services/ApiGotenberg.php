@@ -10,7 +10,7 @@ readonly class ApiGotenberg
 {
     public function __construct(
         private HttpClientInterface $client,
-        private string              $gotenbergUrl,
+        private string $gotenbergUrl,
     ) {
     }
 
@@ -110,8 +110,13 @@ readonly class ApiGotenberg
         return $response->getContent();
     }
 
-    public function encryptPdf(string $fileContent, string $filename, string $mimeType, ?string $userPassword, ?string $ownerPassword): string
-    {
+    public function encryptPdf(
+        string $fileContent,
+        string $filename,
+        string $mimeType,
+        ?string $userPassword,
+        ?string $ownerPassword
+    ): string {
         $fields = [
             'files' => new DataPart($fileContent, $filename, $mimeType),
         ];

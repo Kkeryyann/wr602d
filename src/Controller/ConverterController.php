@@ -15,11 +15,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 #[IsGranted('ROLE_USER')]
 final class ConverterController extends AbstractController
 {
     public function __construct(
-        private readonly ApiGotenberg             $pdfService,
+        private readonly ApiGotenberg $pdfService,
         private readonly EventDispatcherInterface $dispatcher,
     ) {
     }
@@ -102,17 +105,24 @@ final class ConverterController extends AbstractController
 
         $url = $request->request->get('url');
         $htmlFile = $request->files->get('htmlFile');
+        $slug = '';
+        $pdfContent = '';
 
         if ($htmlFile) {
             $htmlContent = file_get_contents($htmlFile->getPathname());
             $pdfContent = $this->pdfService->convertHtmlToPdf($htmlContent);
-        } elseif ($url) {
+            $slug = 'html';
+        }
+
+        if (!$htmlFile && $url) {
             $pdfContent = $this->pdfService->convertUrlToPdf($url);
-        } else {
+            $slug = 'url';
+        }
+
+        if (!$htmlFile && !$url) {
             return new Response('Veuillez fournir une URL ou un fichier HTML.', 400);
         }
 
-        $slug = $htmlFile ? 'html' : 'url';
         $this->dispatchGeneration($slug, $pdfContent, 'converted.pdf', 'application/pdf');
 
         return $this->pdfResponse($pdfContent);
@@ -121,10 +131,10 @@ final class ConverterController extends AbstractController
     // --- LibreOffice single-file (word, excel, powerpoint, image) ---
 
     #[IsGranted('ROLE_BASIC')]
-    #[Route('/converter/word',        name: 'app_convert_word',        methods: ['POST'])]
-    #[Route('/converter/excel',       name: 'app_convert_excel',       methods: ['POST'])]
-    #[Route('/converter/powerpoint',  name: 'app_convert_powerpoint',  methods: ['POST'])]
-    #[Route('/converter/image',       name: 'app_convert_image',       methods: ['POST'])]
+    #[Route('/converter/word', name: 'app_convert_word', methods: ['POST'])]
+    #[Route('/converter/excel', name: 'app_convert_excel', methods: ['POST'])]
+    #[Route('/converter/powerpoint', name: 'app_convert_powerpoint', methods: ['POST'])]
+    #[Route('/converter/image', name: 'app_convert_image', methods: ['POST'])]
     public function convertLibreOffice(Request $request): Response
     {
         $this->denyAccessUnlessGranted(GenerationLimitVoter::CREATE, $this->getUser());

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\PlanRepository;
 use App\Repository\ToolRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,8 +61,13 @@ final class HomeController extends AbstractController
             ];
         }, $tools);
 
+        /** @var User|null $currentUser */
         $currentUser = $this->getUser();
-        $currentPlanId = $currentUser?->getPlan()?->getId();
+
+        $currentPlanId = null;
+        if ($currentUser !== null && $currentUser->getPlan() !== null) {
+            $currentPlanId = $currentUser->getPlan()->getId();
+        }
 
         return $this->render('home/index.html.twig', [
             'plans' => $plansData,

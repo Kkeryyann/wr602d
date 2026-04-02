@@ -6,6 +6,8 @@ use App\Entity\Generation;
 use App\Event\PdfGeneratedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use DateTimeImmutable;
+
 #[AsEventListener(event: PdfGeneratedEvent::class)]
 final class GenerationListener
 {
@@ -34,7 +36,7 @@ final class GenerationListener
         $generation = new Generation();
         $generation->setUser($user);
         $generation->setFile($event->getToolSlug());
-        $generation->setCreatedAt(new \DateTimeImmutable());
+        $generation->setCreatedAt(new DateTimeImmutable());
         $generation->setStoredFilename($storedFilename);
         $generation->setOriginalFilename($event->getOriginalFilename());
         $generation->setMimeType($mime);

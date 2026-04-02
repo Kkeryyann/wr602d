@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Plan;
 use App\Repository\PlanRepository;
@@ -12,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-
 
 #[Route('/payment')]
 class PaymentController extends AbstractController
@@ -32,20 +29,17 @@ class PaymentController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-
         $successUrl = $this->generateUrl(
             'app_payment_success',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
-
         $cancelUrl = $this->generateUrl(
             'app_payment_cancel',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-
 
         $checkoutUrl = $stripeService->createCheckoutSession(
             $this->getUser(),
@@ -54,10 +48,8 @@ class PaymentController extends AbstractController
             $cancelUrl,
         );
 
-
         return $this->redirect($checkoutUrl);
     }
-
 
     /**
      * Page affichée après un paiement réussi.
@@ -68,7 +60,6 @@ class PaymentController extends AbstractController
     {
         return $this->render('payment/success.html.twig');
     }
-
 
     /**
      * Page affichée si l'utilisateur annule le paiement.

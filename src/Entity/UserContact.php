@@ -33,7 +33,6 @@ class UserContact
     #[ORM\ManyToMany(targetEntity: Generation::class, mappedBy: 'userContacts')]
     private Collection $generations;
 
-
     public function __construct()
     {
         $this->generations = new ArrayCollection();
@@ -118,5 +117,4 @@ class UserContact
 
         return $this;
     }
-
 }

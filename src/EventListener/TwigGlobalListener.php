@@ -8,6 +8,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig\Environment;
+use DateTime;
 
 #[AsEventListener(event: 'kernel.controller')]
 class TwigGlobalListener
@@ -16,7 +17,8 @@ class TwigGlobalListener
         private Environment $twig,
         private TokenStorageInterface $tokenStorage,
         private GenerationRepository $generationRepository,
-    ) {}
+    ) {
+    }
 
     public function onKernelController(ControllerEvent $event): void
     {
@@ -29,34 +31,18 @@ class TwigGlobalListener
         }
 
         $roles = $user->getRoles();
+        $planName = 'FREE';
+        $conversionsLimit = 5;
+
         if (in_array('ROLE_PREMIUM', $roles)) {
             $planName = 'PREMIUM';
             $conversionsLimit = -1;
         } elseif (in_array('ROLE_BASIC', $roles)) {
             $planName = 'BASIC';
             $conversionsLimit = 50;
-        } else {
-            $planName = 'FREE';
-            $conversionsLimit = 5;
         }
 
-        $now = new \DateTime();
-
-        // Récupère la dernière génération réussie
-        $lastGeneration = $this->generationRepository->findLastByUser($user);
-
-        if ($lastGeneration) {
-            // Reset = 24h après la dernière conversion réussie
-            $resetAt = (clone $lastGeneration->getCreatedAt())->modify('+24 hours');
-            if ($resetAt > $now) {
-                $diff = $now->diff($resetAt);
-                $resetTime = $diff->h . 'h ' . $diff->i . 'm';
-            } else {
-                $resetTime = '0h 0m';
-            }
-        } else {
-            $resetTime = '0h 0m';
-        }
+        $resetTime = $this->calculateResetTime($user);
 
         $this->twig->addGlobal('headerUser', [
             'firstname'        => $user->getFirstname(),
@@ -67,5 +53,24 @@ class TwigGlobalListener
             'conversionsUsed'  => $this->generationRepository->countTodayByUser($user),
             'resetTime'        => $resetTime,
         ]);
+    }
+
+    private function calculateResetTime(User $user): string
+    {
+        $now = new DateTime();
+        $lastGeneration = $this->generationRepository->findLastByUser($user);
+
+        if (!$lastGeneration) {
+            return '0h 0m';
+        }
+
+        $resetAt = (clone $lastGeneration->getCreatedAt())->modify('+24 hours');
+
+        if ($resetAt <= $now) {
+            return '0h 0m';
+        }
+
+        $diff = $now->diff($resetAt);
+        return $diff->h . 'h ' . $diff->i . 'm';
     }
 }
