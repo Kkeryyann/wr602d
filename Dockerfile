@@ -58,4 +58,7 @@ RUN php vendor/bin/symfony-scripts 2>/dev/null || true \
     && composer dump-autoload --no-dev --optimize --no-scripts 2>/dev/null || true
 
 EXPOSE 80
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+CMD ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
