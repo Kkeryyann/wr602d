@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer_deps /app/vendor/ /var/www/html/vendor/
 
 # Copy built assets
-COPY --from=node_assets /app/public/build/ /var/www/html/public/build/
+COPY public/build/ /var/www/html/public/build/
 
 # Copy application code
 COPY . .
