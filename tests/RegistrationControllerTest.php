@@ -63,6 +63,11 @@ class RegistrationControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertPageTitleContains('Inscription');
 
+        // Extract CSRF token properly from the data-symfonux-react-props attribute
+        $reactPropsData = $crawler->filter('div[data-symfony-ux-react-react-component-value]')->attr('data-symfony-ux-react-react-component-value');
+        $props = json_decode($reactPropsData ?? '{}', true);
+        $csrfToken = $props['props']['csrfToken'] ?? '';
+
         // Note: Because the form is rendered by React, traditional submitForm won't work
         // Instead, we simulate the POST request directly to the controller
         $this->client->request('POST', '/register', [
@@ -73,7 +78,7 @@ class RegistrationControllerTest extends WebTestCase
                 'plainPassword' => 'password123',
                 'agreeTerms' => '1',
                 'plan' => $plan->getId(),
-                '_token' => $crawler->filter('div[data-react-props]')->attr('data-react-props') ? json_decode($crawler->filter('div[data-react-props]')->attr('data-react-props'), true)['csrfToken'] : '',
+                '_token' => $csrfToken,
             ]
         ]);
 
