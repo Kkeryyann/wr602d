@@ -46,8 +46,5 @@ RUN composer dump-autoload --no-dev --optimize --no-scripts 2>/dev/null || true
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 EXPOSE 80
-CMD ["docker-entrypoint.sh"]
+CMD ["sh", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && apache2-foreground"]
