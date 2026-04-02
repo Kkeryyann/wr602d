@@ -1,32 +1,13 @@
-# Stage 1: Build PHP dependencies
-FROM composer:2 as composer_deps
-
-WORKDIR /app
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-interaction --prefer-dist
-
-# Stage 2: Build Node.js assets
-FROM node:20-alpine as node_assets
-
-WORKDIR /app
-COPY --from=composer_deps /app/vendor/ vendor/
-COPY package.json package-lock.json ./
-COPY webpack.config.js ./
-COPY assets/ ./assets/
-RUN npm ci && npm run build
-
 # Stage 3: Final production image
-FROM php:8.3-fpm-alpine
+FROM php:8.3-apache
 
 WORKDIR /var/www/html
 
 # Install required system packages and PHP extensions
-RUN apk add --no-cache \
-    libzip-dev \
-    zip \
-    unzip \
-    postgresql-dev \
-    && docker-php-ext-install -j$(nproc) pdo pdo_pgsql zip
+RUN apk add --no-cache libzip-dev zip unzip postgresql-dev 2>/dev/null || \
+    apt-get update && apt-get install -y libzip-dev libpq-dev zip unzip && \
+    docker-php-ext-install pdo pdo_pgsql zip && \
+    a2enmod rewrite
 
 # Copy composer dependencies
 COPY --from=composer_deps /app/vendor/ /var/www/html/vendor/
@@ -37,11 +18,21 @@ COPY --from=node_assets /app/public/build/ /var/www/html/public/build/
 # Copy application code
 COPY . .
 
-# Set permissions for cache and logs
+# Apache config
+RUN echo '<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html/public\n\
+    <Directory /var/www/html/public>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+# Set permissions
 RUN mkdir -p var/cache var/log && \
     chown -R www-data:www-data var && \
     chmod -R 775 var
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["php-fpm"]
+RUN composer dump-autoload --no-dev --optimize || true
+
+EXPOSE 80
+CMD ["apache2-foreground"]
