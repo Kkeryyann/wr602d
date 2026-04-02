@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Entity\Plan;
+use Doctrine\ORM\EntityManagerInterface;
 
 class RegistrationControllerTest extends WebTestCase
 {
@@ -20,38 +22,67 @@ class RegistrationControllerTest extends WebTestCase
         // Ensure we have a clean database
         $container = static::getContainer();
 
-        /** @var EntityManager $em */
+        /** @var EntityManagerInterface $em */
         $em = $container->get('doctrine')->getManager();
         $this->userRepository = $container->get(UserRepository::class);
 
+        // Remove all users
         foreach ($this->userRepository->findAll() as $user) {
             $em->remove($user);
         }
 
+        // Remove all plans
+        $plans = $em->getRepository(Plan::class)->findAll();
+        foreach ($plans as $plan) {
+            $em->remove($plan);
+        }
+        $em->flush();
+
+        // Create a test plan
+        $plan = new Plan();
+        $plan->setName('FREE');
+        $plan->setDescription('Abonnement gratuit');
+        $plan->setPrice(0);
+        $plan->setLimitGeneration(5);
+        $plan->setRole('ROLE_USER');
+        $plan->setActive(true);
+        $plan->setCreatedAt(new \DateTimeImmutable());
+        $em->persist($plan);
         $em->flush();
     }
 
     public function testRegister(): void
     {
-        // Register a new user
-        $this->client->request('GET', '/register');
-        self::assertResponseIsSuccessful();
-        self::assertPageTitleContains('Register');
+        $container = static::getContainer();
+        /** @var EntityManagerInterface $em */
+        $em = $container->get('doctrine')->getManager();
+        $plan = $em->getRepository(Plan::class)->findOneBy(['name' => 'FREE']);
 
-        $this->client->submitForm('Register', [
-            'registration_form[email]' => 'me@example.com',
-            'registration_form[plainPassword]' => 'password',
-            'registration_form[agreeTerms]' => true,
+        // Register a new user
+        $crawler = $this->client->request('GET', '/register');
+        self::assertResponseIsSuccessful();
+        self::assertPageTitleContains('Inscription');
+
+        // Note: Because the form is rendered by React, traditional submitForm won't work
+        // Instead, we simulate the POST request directly to the controller
+        $this->client->request('POST', '/register', [
+            'registration_form' => [
+                'firstname' => 'John',
+                'lastname' => 'Doe',
+                'email' => 'me@example.com',
+                'plainPassword' => 'password123',
+                'agreeTerms' => '1',
+                'plan' => $plan->getId(),
+                '_token' => $crawler->filter('div[data-react-props]')->attr('data-react-props') ? json_decode($crawler->filter('div[data-react-props]')->attr('data-react-props'), true)['csrfToken'] : '',
+            ]
         ]);
 
         // Ensure the response redirects after submitting the form, the user exists, and is not verified
-        // self::assertResponseRedirects('/');  @TODO: set the appropriate path that the user is redirected to.
+        self::assertResponseRedirects('/login');
         self::assertCount(1, $this->userRepository->findAll());
         self::assertFalse(($user = $this->userRepository->findAll()[0])->isVerified());
 
         // Ensure the verification email was sent
-        // Use either assertQueuedEmailCount() || assertEmailCount() depending on your mailer setup
-        // self::assertQueuedEmailCount(1);
         self::assertEmailCount(1);
 
         self::assertCount(1, $messages = $this->getMailerMessages());
