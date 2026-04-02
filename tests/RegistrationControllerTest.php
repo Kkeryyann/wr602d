@@ -61,12 +61,29 @@ class RegistrationControllerTest extends WebTestCase
         // Register a new user
         $crawler = $this->client->request('GET', '/register');
         self::assertResponseIsSuccessful();
-        self::assertPageTitleContains('Inscription');
 
-        // Extract CSRF token properly from the data-symfonux-react-props attribute
-        $reactPropsData = $crawler->filter('div[data-symfony-ux-react-react-component-value]')->attr('data-symfony-ux-react-react-component-value');
-        $props = json_decode($reactPropsData ?? '{}', true);
-        $csrfToken = $props['props']['csrfToken'] ?? '';
+        // Assert the title correctly
+        $title = $crawler->filter('title')->text();
+        self::assertStringContainsString('Inscription', $title);
+
+        // Extract CSRF token by looking for the react component div
+        $div = $crawler->filter('div[data-symfony-ux-react-react-component-value]');
+
+        // Sometimes the attribute is data-react-component depending on the UX React version
+        if ($div->count() === 0) {
+            $div = $crawler->filter('div[data-react-component]');
+        }
+
+        // If still not found, let's grab the raw HTML and regex it
+        if ($div->count() === 0) {
+            $html = $this->client->getResponse()->getContent();
+            preg_match('/"csrfToken":"([^"]+)"/', $html, $matches);
+            $csrfToken = $matches[1] ?? '';
+        } else {
+            $reactPropsData = $div->attr('data-symfony-ux-react-react-component-value') ?? $div->attr('data-react-component');
+            $props = json_decode($reactPropsData ?? '{}', true);
+            $csrfToken = $props['props']['csrfToken'] ?? $props['csrfToken'] ?? '';
+        }
 
         // Note: Because the form is rendered by React, traditional submitForm won't work
         // Instead, we simulate the POST request directly to the controller
