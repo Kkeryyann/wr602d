@@ -5,18 +5,7 @@ WORKDIR /app
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-scripts --no-interaction --prefer-dist
 
-# Stage 2: Build Node.js assets
-FROM node:20-alpine AS node_assets
-
-WORKDIR /app
-COPY --from=composer_deps /app/vendor/ vendor/
-COPY package.json package-lock.json ./
-COPY webpack.config.js ./
-COPY assets/ ./assets/
-COPY templates/ ./templates/
-RUN npm ci && npm run build
-
-# Stage 3: Final production image
+# Stage 2: Final production image
 FROM php:8.3-apache
 
 WORKDIR /var/www/html
@@ -34,10 +23,7 @@ RUN apt-get update && apt-get install -y \
 # Copy composer dependencies
 COPY --from=composer_deps /app/vendor/ /var/www/html/vendor/
 
-# Copy built assets
-COPY public/build/ /var/www/html/public/build/
-
-# Copy application code
+# Copy application code (includes public/build/ already built locally)
 COPY . .
 
 # Apache virtualhost config
@@ -55,11 +41,13 @@ RUN mkdir -p var/cache var/log var/pdf_storage \
     && chmod -R 775 var
 
 # Optimize autoloader
-RUN php vendor/bin/symfony-scripts 2>/dev/null || true \
-    && composer dump-autoload --no-dev --optimize --no-scripts 2>/dev/null || true
+RUN composer dump-autoload --no-dev --optimize --no-scripts 2>/dev/null || true
 
-EXPOSE 80
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+EXPOSE 80
 CMD ["docker-entrypoint.sh"]
-CMD ["apache2-foreground"]
