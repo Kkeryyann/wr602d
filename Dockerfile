@@ -13,7 +13,7 @@ COPY --from=composer_deps /app/vendor/ vendor/
 COPY package.json package-lock.json ./
 COPY webpack.config.js ./
 COPY assets/ ./assets/
-COPY templates/ ./templates/    # <-- ajoute cette ligne
+COPY templates/ ./templates/
 RUN npm ci && npm run build
 
 # Stage 3: Final production image
