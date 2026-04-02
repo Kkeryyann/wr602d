@@ -47,4 +47,4 @@ ENV APP_ENV=prod
 ENV APP_DEBUG=0
 
 EXPOSE 80
-CMD ["bash", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && exec apache2-foreground"]
+CMD ["bash", "-c", "chown -R www-data:www-data /var/www/html/var && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && exec apache2-foreground"]
