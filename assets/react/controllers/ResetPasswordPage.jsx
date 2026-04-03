@@ -3,8 +3,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Eye, EyeOff, Lock, CheckCircle, XCircle } from "lucide-react";
-
+import { Eye, EyeOff, Lock, CheckCircle, XCircle, Zap } from "lucide-react";
 function Alert({ variant = "danger", children }) {
     const styles = {
         danger: "bg-red-50 border border-red-200 text-red-800 dark:bg-red-950 dark:border-red-800 dark:text-red-300",
@@ -52,7 +51,7 @@ export default function ResetPasswordPage({ errors = [], resetErrors = [], csrfT
                 <div className="w-full max-w-md space-y-6">
 
                     <div className="text-center">
-                        <a href="/">
+                        <a href="/" className="inline-flex items-center gap-2.5">
                             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                                 <Zap className="h-4 w-4" />
                             </div>

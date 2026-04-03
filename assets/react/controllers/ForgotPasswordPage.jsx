@@ -3,7 +3,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Mail, ArrowLeft, XCircle } from "lucide-react";
+import { Mail, ArrowLeft, XCircle, Zap } from "lucide-react";
 
 export default function ForgotPasswordPage({ errors = [], csrfToken = "" }) {
     const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ export default function ForgotPasswordPage({ errors = [], csrfToken = "" }) {
                 <div className="w-full max-w-md space-y-6">
 
                     <div className="text-center">
-                        <a href="/">
+                        <a href="/" className="inline-flex items-center gap-2.5">
                             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                                 <Zap className="h-4 w-4" />
                             </div>

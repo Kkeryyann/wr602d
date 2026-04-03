@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card";
-import { Mail } from "lucide-react";
+import { Mail, Zap } from "lucide-react";
 
 export default function CheckEmailPage({ expiresAt = "" }) {
     return (
@@ -10,7 +10,7 @@ export default function CheckEmailPage({ expiresAt = "" }) {
                 <div className="w-full max-w-md space-y-6">
 
                     <div className="text-center">
-                        <a href="/">
+                        <a href="/" className="inline-flex items-center gap-2.5">
                             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                                 <Zap className="h-4 w-4" />
                             </div>
