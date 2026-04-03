@@ -66,7 +66,7 @@ class PaymentController extends AbstractController
         }
 
         return $this->render('payment/success.html.twig');
-}
+    }
 
     /**
      * Page affichée si l'utilisateur annule le paiement.
