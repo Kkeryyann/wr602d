@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Plan; // <-- N'oublie pas cet import !
 use App\Form\RegistrationFormType;
 use App\Repository\PlanRepository;
 use App\Security\EmailVerifier;
@@ -36,14 +37,28 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // 1. Hashage du mot de passe
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
+            // --- NOUVEAU CODE ICI ---
+            // 2. On récupère le plan choisi dans le formulaire
+            /** @var Plan|null $selectedPlan */
+            $selectedPlan = $form->get('plan')->getData();
+
+            // 3. Si un plan a été choisi, on lit son rôle et on l'injecte dans le User
+            if ($selectedPlan) {
+                // Par exemple, si le plan contient 'ROLE_BASIC', l'utilisateur l'aura
+                $user->setRoles([$selectedPlan->getRole()]);
+            }
+            // ------------------------
+
+            // 4. Sauvegarde en base de données
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // 5. Envoi de l'email de confirmation
             $this->emailVerifier->sendEmailConfirmation(
                 'app_verify_email',
                 $user,
