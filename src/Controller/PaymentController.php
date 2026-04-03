@@ -58,6 +58,13 @@ class PaymentController extends AbstractController
     #[Route('/success', name: 'app_payment_success')]
     public function success(): Response
     {
+        // Force le refresh du token de sécurité si l'user est connecté
+        $user = $this->getUser();
+        if ($user) {
+            // Recharge l'user depuis la DB pour avoir le nouveau plan
+            $this->container->get('security.token_storage')->getToken()?->setUser($user);
+        }
+
         return $this->render('payment/success.html.twig');
     }
 
