@@ -127,9 +127,9 @@ final class SubscriptionController extends AbstractController
 
         // Appel propre à ton service Stripe avec les 4 arguments attendus !
         $checkoutUrl = $stripeService->createCheckoutSession(
-            $user, 
-            $plan, 
-            $successUrl, 
+            $user,
+            $plan,
+            $successUrl,
             $cancelUrl
         );
 
