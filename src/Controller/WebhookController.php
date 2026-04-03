@@ -77,8 +77,9 @@ class WebhookController extends AbstractController
         }
 
         $user->setPlan($plan);
+        $planRole = $plan->getRole();
+        $user->setRoles($planRole ? [$planRole] : []);
         $em->flush();
-
         return new Response('OK', Response::HTTP_OK);
     }
 
@@ -99,9 +100,9 @@ class WebhookController extends AbstractController
 
         if ($user && $freePlan) {
             $user->setPlan($freePlan);
+            $user->setRoles([]);
             $em->flush();
         }
-
         return new Response('OK', Response::HTTP_OK);
     }
 }
