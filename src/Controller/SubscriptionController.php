@@ -3,17 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Plan;
+use App\Entity\User;
 use App\Repository\PlanRepository;
 use App\Repository\ToolRepository;
+use App\Services\StripeService; // Attention au "s" de Services selon ton namespace
+use App\Security\Voter\PlanSelectVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Security\Voter\PlanSelectVoter;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\SecurityBundle\Security;
 
 final class SubscriptionController extends AbstractController
 {
@@ -64,7 +66,7 @@ final class SubscriptionController extends AbstractController
             ];
         }, $allTools);
 
-        /** @var \App\Entity\User|null $user */
+        /** @var User|null $user */
         $user = $this->getUser();
         $currentPlanId = $user?->getPlan()?->getId();
 
@@ -81,23 +83,68 @@ final class SubscriptionController extends AbstractController
     {
         $this->denyAccessUnlessGranted(PlanSelectVoter::SELECT, $plan);
 
-        /** @var \App\Entity\User $user */
+        /** @var User $user */
         $user = $this->getUser();
 
-        $user->setPlan($plan);
+        // 1. SI PLAN GRATUIT
+        if ($plan->getPrice() == 0) {
+            $user->setPlan($plan);
+            $planRole = $plan->getRole();
+            $user->setRoles($planRole ? [$planRole] : []);
+            
+            $entityManager->flush();
+            $security->login($user, 'form_login', 'main');
 
-        $planRole = $plan->getRole();
-        $user->setRoles($planRole ? [$planRole] : []);
+            return $this->json([
+                'success' => true,
+                'message' => 'Plan gratuit sélectionné avec succès !',
+                'planName' => $plan->getName(),
+                'redirectUrl' => null // Pas de paiement requis
+            ]);
+        }
 
-        $entityManager->flush();
-
-        // Rafraîchit le token de sécurité pour appliquer les nouveaux rôles immédiatement
-        $security->login($user, 'form_login', 'main');
+        // 2. SI PLAN PAYANT
+        $checkoutUrl = $this->generateUrl('app_abonnement_checkout', ['id' => $plan->getId()]);
 
         return $this->json([
             'success' => true,
-            'message' => 'Plan sélectionné avec succès !',
-            'planName' => $plan->getName()
+            'message' => 'Redirection vers le paiement en cours...',
+            'planName' => $plan->getName(),
+            'redirectUrl' => $checkoutUrl
         ]);
+    }
+
+    #[IsGranted('ROLE_USER')]
+    #[Route('/subscription/checkout/{id}', name: 'app_abonnement_checkout', methods: ['GET'])]
+    public function checkout(Plan $plan, StripeService $stripeService): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        // URLs de retour après paiement
+        $successUrl = $this->generateUrl('app_abonnement_success', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $cancelUrl  = $this->generateUrl('app_abonnement_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        // Appel propre à ton service Stripe avec les 4 arguments attendus !
+        $checkoutUrl = $stripeService->createCheckoutSession(
+            $user,
+            $plan,
+            $successUrl,
+            $cancelUrl
+        );
+
+        return $this->redirect($checkoutUrl);
+    }
+
+    #[Route('/subscription/success', name: 'app_abonnement_success')]
+    public function success(): Response
+    {
+        return $this->render('subscription/success.html.twig');
+    }
+
+    #[Route('/subscription/cancel', name: 'app_abonnement_cancel')]
+    public function cancel(): Response
+    {
+        return $this->render('subscription/cancel.html.twig');
     }
 }
