@@ -14,7 +14,7 @@ export default function ForgotPasswordPage({ errors = [], csrfToken = "" }) {
                 <div className="w-full max-w-md space-y-6">
 
                     <div className="text-center">
-                        <a href="/">
+                        <a href="/" className="inline-flex items-center gap-2.5">
                             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                                 <Zap className="h-4 w-4" />
                             </div>
