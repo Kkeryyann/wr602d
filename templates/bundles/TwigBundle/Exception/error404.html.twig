@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page introuvable - PDF Faktory</title>
+    <style>
+        /* Reset de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Le fond sombre avec la grille de points façon PDF Faktory */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Création du motif à points */
+            background-image: radial-gradient(#333333 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Conteneur principal */
+        .error-container {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        /* Titre géant */
+        h1 {
+            font-size: 8rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        /* Le texte rouge comme sur ta maquette */
+        .text-red {
+            color: #ff0000;
+        }
+
+        /* Sous-titre */
+        h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Texte descriptif gris */
+        p {
+            color: #a3a3a3;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Le bouton rouge */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ff0000;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #cc0000;
+        }
+
+        /* Petite flèche du bouton */
+        .btn svg {
+            margin-left: 8px;
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>4<span class="text-red">0</span>4</h1>
+        <h2>Document <span class="text-red">introuvable</span></h2>
+        <p>La page que vous recherchez n'existe pas ou a été déplacée. Retournez à l'accueil pour convertir vos fichiers.</p>
+        
+        <a href="{{ path('app_home') }}" class="btn"> {/* Remplace 'app_home' par le nom de ta route d'accueil */}
+            Retour à l'accueil
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </a>
+    </div>
+</body>
+</html>
