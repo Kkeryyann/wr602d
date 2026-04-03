@@ -142,7 +142,14 @@ final class SubscriptionController extends AbstractController
         }
 
         // Création de la session et redirection vers Stripe
-        $checkoutUrl = $stripeService->createCheckoutSession($user, $plan, $successUrl, $cancelUrl, $customerId, $priceId);
+        $checkoutUrl = $stripeService->createCheckoutSession(
+            $user,
+            $plan,
+            $successUrl,
+            $cancelUrl,
+            $customerId,
+            $priceId
+        );
 
         return $this->redirect($checkoutUrl);
     }
@@ -164,7 +171,7 @@ final class SubscriptionController extends AbstractController
 
         // Redirige vers la page du compte après avoir quitté le portail Stripe
         // (Vérifie que la route 'app_home' correspond bien à ton projet)
-        $returnUrl = $this->generateUrl('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL); 
+        $returnUrl = $this->generateUrl('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL);
         $portalUrl = $stripeService->createPortalSession($user, $returnUrl);
 
         return $this->redirect($portalUrl);
