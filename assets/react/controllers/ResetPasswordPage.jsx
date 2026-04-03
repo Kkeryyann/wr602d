@@ -3,7 +3,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Eye, EyeOff, Lock, CheckCircle, XCircle } from "lucide-react";
+import { Eye, EyeOff, Lock, CheckCircle, XCircle, Zap } from "lucide-react";
 function Alert({ variant = "danger", children }) {
     const styles = {
         danger: "bg-red-50 border border-red-200 text-red-800 dark:bg-red-950 dark:border-red-800 dark:text-red-300",
