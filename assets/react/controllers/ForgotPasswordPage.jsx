@@ -3,7 +3,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Mail, ArrowLeft, XCircle } from "lucide-react";
+import { Mail, ArrowLeft, XCircle, Zap } from "lucide-react";
 
 export default function ForgotPasswordPage({ errors = [], csrfToken = "" }) {
     const [loading, setLoading] = useState(false);
