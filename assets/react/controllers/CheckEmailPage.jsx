@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card";
-import { Mail } from "lucide-react";
+import { Mail, Zap } from "lucide-react";
 
 export default function CheckEmailPage({ expiresAt = "" }) {
     return (
